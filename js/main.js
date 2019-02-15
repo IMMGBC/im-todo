@@ -42,7 +42,7 @@ function showAllRecord() {
   }% which is an ${todoRecord[0].task.compl}</li>`;
   allRecords.innerHTML += `<li>${todoRecord[1].name.subj} compl ${
     todoRecord[1].name.total
-  }% which is an ${studentRecord[1].name.total}</li>`;
+  }% which is an ${todoRecord[1].name.total}</li>`;
   allRecords.innerHTML += `<li>${todoRecord[2].name.subj} compl ${
     todoRecord[2].task.total
   }% which is an ${todotRecord[2].task.compl}</li>`;
