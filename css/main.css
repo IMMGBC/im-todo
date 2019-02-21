@@ -1,7 +1,15 @@
-.week {
+.calendar {
     background-color: plum
 }
-.week
-.tags {
-    background-color: blue
+.tag {
+    background-color: green
+}
+.subject {
+    background-color: coral
+}
+.task {
+    background-color: cyan
+}
+.instructor {
+    background-color: greenyellow
 }
