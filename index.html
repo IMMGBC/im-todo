@@ -10,64 +10,55 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-<script src="main.js"></script>
+</html>
 
-    <!-- object are listed in diferent categories  -->
+<!-- create menu and place logo -->
 
-    <ul id="todoRecord"></ul>
-    <ul>  
-
-    <div class="calendar">
-      <h1>Category</h1>
-    </div>
-      <!-- <li>PT - Task App</li>
-      <li>WD - Update GitHub</li>
-      <li>3D - Storyboard</li>
-      <li>MP - WordPress</li>
-      <li>IP - Charrettte</li> -->
+<div class="container">
+    <p>
+      <label for="new-task">New Task</label>
+      <input id="new-task" type="text">
+      <button>Add</button>
+    </p>
     
-    <div class="tag">
-      <h1>Tags</h1>
-    </div>
-      <!-- <li>PT</li>
-      <li>WD</li>
-      <li>3D</li>
-      <li>MP</li>
-      <li>IP</li> -->
-
-    <div class="subject">
-        <h1>Subject</h1>
-      </div>
-      <!-- <li>PT - Prototype</li>
-      <li>WD - Web Develepment</li>
-      <li>3D - Design 3D</li>
-      <li>MP - Media Production</li>
-      <li>IP - Interactive Production</li> -->
-
-    <div class="task">
-        <h1>Task</h1>
-      </div>
-      <!-- <li>Prepare presentation</li>
-      <li>Save project on github</li>
-      <li>Create storyboard</li>
-      <li>Upload pictures to WordPress</li>
-      <li>UX Research</li> -->
-
-    <div class="instructor">
-        <h1>Instructor</h1>
-      </div>
-      <!-- <li>Martin</li>
-      <li>Panacci</li>
-      <li>Sam</li>
-      <li>Sgrignoli</li>
-      <li>Desgroseilliers</li> -->
-
-
+    <h3>Task</h3>
+    <ul id="incomplete-tasks">
+      <li>
+        <input type="checkbox">
+        <label>Update GitHub</label>
+        <button class="edit">Edit</button>
+        <button class="done">Done</button>
+      </li>
+      <!-- check why not showing list -->
+      <li class="editMode">
+        <input type="checkbox">
+        <label>Create Storyboards</label>
+        <button class="edit">Edit</button>
+        <button class="Done">Done</button>
+      </li>
+      <li class="editMode">
+          <input type="checkbox">
+          <label>Upload pictures on Wordpress</label>
+          <button class="edit">Edit</button>
+          <button class="Done">Done</button>
+        </li>
     </ul>
     
-
-
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
-    <script src="js/main.js"></script>
-  </body>
+    <h3>Completed</h3>
+    <ul id="completed-tasks">
+      <li>
+        <input type="checkbox" checked="">
+        <label>Finish html</label>
+        <button class="edit">Edit</button>
+        <button class="done">Done</button>
+      </li>
+      <li>
+          <input type="checkbox" checked="">
+          <label>Charrette</label>
+          <button class="edit">Edit</button>
+          <button class="done">Done</button>
+        </li>
+    </ul>
+  </div>
+</body>
 </html>

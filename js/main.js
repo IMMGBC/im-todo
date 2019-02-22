@@ -1,56 +1,147 @@
-let todoRecord = [
-  {
-    todoId: Task1,
-    name: { subj: `MP`, inst: `Sgrignoli` },
-    task: { total: 4, compl: `100%` }
-  }, // 0
-  {
-    todoId: Task2,
-    name: { subj: `IP`, inst: `Masse` },
-    task: { total: 7, compl: `50%` }
-  }, // 1
-  {
-    todoId: Task3,
-    name: { subj: `PM`, inst: `Desgroseilliers` },
-    task: { total: 9, compl: `10%` }
-  }, // 2
-  {
-    todoId: Task4,
-    name: { subj: `WD`, inst: `Pacinni` },
-    task: { total: 4, compl: `10%` }
-  }, // 2
-  {
-    todoId: Task5,
-    name: { subj: `PT`, inst: `Martin` },
-    task: { total: 1, compl: `10%` }
-  } // 2
-];
+// file not proper linked to htlm
 
-// Where are we putting this stuff?
-let allRecords = document.getElementById("records");
+let taskInput = document.getElementById("new-task"); // new-task
+let addButton = document.getElementsByTagName("button")[0];//first button
+let incompleteTasksHolder = document.getElementById("incomplete-tasks"); //incomplete-tasks
+let completedTasksHolder = document.getElementById("completed-tasks"); //completed-tasks
 
-function clearAllRecords() {
-  // Clear out all the records
-  allRecords.innerHTML = ``;
+//New Task List item
+
+let createNewTaskElement = function(taskString) {
+  
+  let listItem = document.createElement("li");
+  // input checkbox
+  let checkBox = document.createElement("input");
+  // label
+  let label = document.createElement("label");
+  // input (text)
+  let editInput = document.createElement("input");
+  // button.edit
+  let editButton = document.createElement("button");
+  // button.delete
+  let doneButton = document.createElement("button");
+  
+  //Each element needs modified 
+  
+  checkBox.type = "checkBox";
+  editInput.type = "text";
+  
+  editButton.innerText = "Edit";
+  editButton.className = "edit";
+  deleteButton.innerText = "Delete";
+  deleteButton.className = "delete";
+  
+  label.innerText = taskString;
+  
+  // Each element needs appending
+  listItem.appendChild(checkBox);
+  listItem.appendChild(label);
+  listItem.appendChild(editInput);
+  listItem.appendChild(editButton);
+  listItem.appendChild(deleteButton);
+
+	return listItem;
 }
-// 1. Add a clear button to the interface to call this above function
 
-function showAllRecord() {
-  clearAllRecords();
-  allRecords.innerHTML += `<li>${todoRecord[0].name.subj} compl ${
-    todoRecord[0].task.total
-  }% which is an ${todoRecord[0].task.compl}</li>`;
-  allRecords.innerHTML += `<li>${todoRecord[1].name.subj} compl ${
-    todoRecord[1].name.total
-  }% which is an ${todoRecord[1].name.total}</li>`;
-  allRecords.innerHTML += `<li>${todoRecord[2].name.subj} compl ${
-    todoRecord[2].task.total
-  }% which is an ${todotRecord[2].task.compl}</li>`;
+
+//Add a new task
+let addTask = function() {
+  console.log("Add Task");
+  //Create a new list item with the text from the #new-task:
+  let listItem = createNewTaskElement(taskInput.value);
+  //Append listItem to incompleteTaskHolder
+  incompleteTasksHolder.appendChild(listItem);
+  bindTaskEvents(listItem, taskCompleted);
+  taskInput.value = "";
 }
-// 2. Add a refresh button to the interface to call this above function
 
-// Functions we will add:
-// addNewTask()
-// deleteTask()
-// showOneTaskRecord()
-// updateTask()
+//Edit an existing task
+let editTask = function() {
+    console.log("Edit Task");
+  
+let listItem = this.parentNode;
+  
+let editInput = listItem.querySelector("input[type=text]");
+let label = listItem.querySelector("label");
+  
+let containsClass = listItem.classList.contains("editMode");
+  
+  
+  // if class of the parent is .editMode
+  if (containsClass) {
+      //Switch from .editMode
+      //label text become the input's value
+      label.innerText = editInput.value;
+  } else {
+      //Switch to .editMode
+      //input value becomes the labels text
+     	editInput.value = label.innerText;
+  }
+  //Toggle .editMode on the parent 
+  listItem.classList.toggle("editMode");
+}
+
+//Delete an existing task
+let deleteTask = function () {
+    console.log("Delete Task");
+		//Remove the parent list item from the ul
+  	let listItem = this.parentNode;
+  	let ul = listItem.parentNode;
+  
+  	ul.removeChild(listItem);
+}
+
+//Mark a task as complete
+let taskCompleted = function() {
+   console.log("Task Complete");
+  //When the Checkbox is checked 
+  //Append the task list item to the #completed-tasks ul
+   let listItem = this.parentNode;
+   completedTasksHolder.appendChild(listItem);
+   bindTaskEvents(listItem, taskIncomplete);
+}
+
+
+//Mark a task as incomplete
+let taskIncomplete = function() {
+  console.log("Task Incomplete");
+ 	//When the checkbox is unchecked appendTo #incomplete-tasks
+  let listItem = this.parentNode;
+  incompleteTasksHolder.appendChild(listItem);
+  bindTaskEvents(listItem, taskCompleted);
+}
+
+
+//Set the click handler to the addTask function
+addButton.addEventListener("click", addTask); 
+
+
+let bindTaskEvents = function(taskListItem, checkBoxEventHandler) {
+  	console.log("Bind List item events");
+  	// select listitems chidlren
+  	let checkBox = taskListItem.querySelector('input[type="checkbox"]');
+    let editButton = taskListItem.querySelector("button.edit");
+    let deleteButton = taskListItem.querySelector("button.delete");
+		//bind editTask to edit button
+  	editButton.onclick = editTask;
+		//bind deleteTask to delete button
+ 		deleteButton.onclick = deleteTask;
+		//bind checkBoxEventHandler to checkbox
+  	checkBox.onchange = checkBoxEventHandler;
+  
+}
+
+//cycle over incompleteTaskHolder ul list items
+for (let i = 0; i < incompleteTasksHolder.children.length; i ++) {
+  //bind events to list item's children (taskCompleted)	
+  bindTaskEvents(incompleteTasksHolder.children[i], taskCompleted);
+}
+
+//cycle over completedTaskHolder ul list items
+for (var i = 0; i < completedTasksHolder.children.length; i ++) {
+  //bind events to list item's children (taskCompleted)	
+  bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
+}
+
+
+  
